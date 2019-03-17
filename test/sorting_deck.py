@@ -23,17 +23,19 @@ def bubble_sort(list):
         for j in range(len(list) - 1 - i):
             if list[j] > list[j+1]:
                 list[j], list[j+1] = list[j+1], list[j]
-                # print (list)
-    return list
+                print (*list)
 
 
 def insertion_sort(list):
     for i in range(1, len(list)):
+        value = list[i]
         for j in range(i-1, -1, -1):
             if list[j] > list [j+1]:
                 list[j], list[j+1] = list[j+1], list[j]
-                # print(list)
-    return list
+        if value == list[i]:
+            pass
+        else:
+            print (*list)
 
 
 def partition(list, left, right):
@@ -42,7 +44,7 @@ def partition(list, left, right):
     Return the right position of that pivot to continue divine sublists
     """
     pivot = list[right]
-    print(pivot)
+    print (pivot)
     i = left - 1
     for j in range(left, right):
         if list[j] < pivot:
@@ -55,22 +57,45 @@ def partition(list, left, right):
 def quick_sort(list, left, right):
     if left < right:
         piv = partition(list, left, right)
-        print ('1: ', end='')
-        print (list)
+        print (*list)
         quick_sort(list, left, piv-1)
-        print ('2: ', end='')
-        print(list)
         quick_sort(list, piv+1, right)
-        print ('3: ', end='')
-        print(list)
-    return list
 
 
 def merge_sort(list):
-
+    if len(list) > 1:
+        middle = len(list)//2
+        print ("*",middle)
+        Left = list[:middle]
+        Right = list[middle:]
+        print ('left: ', end='')
+        print (Left)
+        print ('right: ', end='')
+        print (Right)
+        merge_sort(Left)
+        merge_sort(Right)
+        i = j = k = 0
+        while i < len(Left) and j < len(Right):
+            if Left[i] < Right[j]:
+                list[k] = Left[i]
+                i += 1
+            else:
+                list[k] = Right[j]
+                j += 1
+            k += 1
+        while i < len(Left):
+            list[k] = Left[i]
+            i += 1
+            k += 1
+        while j < len(Right):
+            list[k] = Right[j]
+            j += 1
+            k += 1
+        print (list)
 
 
 list = list_to_sort()
-# print(bubble_sort(list[1]))
-# print(insertion_sort(list[1]))
-print(quick_sort(list[1],0,len(list[1])-1))
+# bubble_sort(list[1])
+# insertion_sort(list[1])
+# quick_sort(list[1],0,len(list[1])-1)
+merge_sort(list[1])
